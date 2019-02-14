@@ -14,7 +14,7 @@ const (
 	bitbucketSSH   = "git@(?P<provider>bitbucket.org):(?P<username>[a-zA-Z]+)/(?P<project>[a-zA-Z]+)\\.git"
 
 	githubHTTPS = "https://(?P<provider>github.com)/(?P<username>[a-zA-Z]+)/(?P<project>[a-zA-Z]+)\\.git"
-	githubSSH   = "git@(?P<provider>github.com):([a-zA-Z]+)/([a-zA-Z]+)\\.git"
+	githubSSH   = "git@(?P<provider>github.com):(?P<username>[a-zA-Z]+)/(?P<project>[a-zA-Z]+)\\.git"
 
 	gitlabHTTPS = "https://(?P<provider>gitlab.com)/(?P<username>[a-zA-Z]+)/(&P<project>[a-zA-Z]+)\\.git"
 	gitlabSSH   = "git@(?P<provider>gitlab.com):(?P<username>[a-zA-Z]+)/(?P<project>[a-zA-Z]+).git"

@@ -17,6 +17,7 @@ func main() {
 
 	p.Commands = []cli.Command{
 		&cloneCommand{},
+		&newCommand{},
 	}
 
 	p.FlagSet = flag.NewFlagSet("project", flag.ExitOnError)

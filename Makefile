@@ -1,7 +1,7 @@
 # Makefile magic from Jessie Frazelle:
 # https://github.com/jessfraz
 
-NAME := orc
+NAME := project
 USERNAME := dalloriam
 PKG := github.com/$(USERNAME)/$(NAME)
 IMAGE := $(USERNAME)/$(NAME)
