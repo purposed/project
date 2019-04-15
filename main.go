@@ -16,8 +16,9 @@ func main() {
 	p.GitCommit = version.GITCOMMIT
 
 	p.Commands = []cli.Command{
-		&cloneCommand{},
 		&newCommand{},
+		&cloneCommand{},
+		&listCommand{},
 	}
 
 	p.FlagSet = flag.NewFlagSet("project", flag.ExitOnError)

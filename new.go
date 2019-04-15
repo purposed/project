@@ -4,7 +4,8 @@ import (
 	"context"
 	"errors"
 	"flag"
-	"fmt"
+
+	"github.com/dalloriam/project/vcs"
 )
 
 const (
@@ -23,28 +24,26 @@ func (cmd *newCommand) ShortHelp() string { return newCmdHelp }
 func (cmd *newCommand) LongHelp() string  { return newCmdHelp }
 func (cmd *newCommand) Hidden() bool      { return false }
 func (cmd *newCommand) Register(fs *flag.FlagSet) {
-	fs.StringVar(&cmd.provider, "provider", "", "Repository provider (Default is 'github'")
-	fs.StringVar(&cmd.provider, "p", "", "Repository provider (Default is 'github'")
+	fs.StringVar(&cmd.provider, "provider", "", "Repository provider (Default defined in config)")
+	fs.StringVar(&cmd.provider, "p", "", "Repository provider (Default defined in config)")
 }
 
 func (cmd *newCommand) Run(ctx context.Context, args []string) error {
-	if len(args) <= 1 {
+	if len(args) < 1 {
 		return errors.New("must pass a project name")
 	}
 
-	var provider = "github"
+	cfg := getConfig()
+
+	var provider = cfg.PreferredProvider
 	if cmd.provider != "" {
 		provider = cmd.provider
 	}
 
-	repo := Repository{
-		Name:     args[0],     // TODO: Escape properly.
-		Owner:    "dalloriam", // TODO: Change to env var w/ default.
-		Provider: provider,
-		URL:      "", // TODO: Propagate when properly created in the cloud
+	svc := vcs.NewService(cfg.RootPath)
+	if err := svc.Create(args[0], cfg.DefaultOwner, provider); err != nil {
+		return err
 	}
-
-	fmt.Println(repo)
 
 	return nil
 }

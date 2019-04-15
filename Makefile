@@ -6,7 +6,7 @@ USERNAME := dalloriam
 PKG := github.com/$(USERNAME)/$(NAME)
 IMAGE := $(USERNAME)/$(NAME)
 PREFIX ?=$(shell pwd)
-BUILDDIR := ${PREFIX}/dist
+BUILDDIR := ${PREFIX}/bin
 
 VERSION := $(shell cat VERSION.txt)
 GITCOMMIT := $(shell git rev-parse --short HEAD)
@@ -92,12 +92,7 @@ install: prebuild ## Installs the executable or package.
 	@echo "+ $@"
 	$(GO) install -a -tags "$(BUILDTAGS)" ${GO_LDFLAGS} .
 
-.PHONY: image
-image:
-	@echo "+ $@"
-	docker build --rm --force-rm -t $(IMAGE) .
-
 .PHONY: test
 test:
 	@echo "+ $@"
-	go test -cover -v ./...
+	go test -cover -race -v ./...
