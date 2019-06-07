@@ -1,6 +1,7 @@
 package vcs
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -69,10 +70,12 @@ func (r *Repository) InitDirectories(rootPath string) error {
 	return nil
 }
 
+// SetRoot sets the root path of the repository.
 func (r *Repository) SetRoot(rootPath string) {
 	r.rootPath = rootPath
 }
 
+// Fetch runs "git fetch" in the repo's root.
 func (r *Repository) Fetch() error {
 	curPath, err := os.Getwd()
 	if err != nil {
@@ -85,9 +88,9 @@ func (r *Repository) Fetch() error {
 	defer os.Chdir(curPath)
 
 	cmd := exec.Command("git", "fetch")
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		fmt.Println(string(out))
+	_, err = cmd.CombinedOutput()
+	if code := cmd.ProcessState.ExitCode(); code == 128 {
+		return errors.New("no git repository or remote")
 	}
 	return err
 }
@@ -98,7 +101,7 @@ func (r *Repository) Clone() error {
 	cmd := exec.Command("git", "clone", r.URL, r.ProjectPath(r.rootPath))
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Println(out)
+		fmt.Println(string(out))
 	}
 	return err
 }

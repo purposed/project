@@ -2,51 +2,49 @@ package main
 
 import (
 	"os/user"
-	"path"
+	"strings"
 
 	"github.com/spf13/viper"
 )
 
-var _curUsr, _ = user.Current()
-var configDir = path.Join(_curUsr.HomeDir, ".config", "dalloriam")
-
-var defaultConfig = Config{
-	DefaultOwner:      "dalloriam",
-	PreferredProvider: "github.com",
-}
+var configKeys = []string{"owner", "sourceroot", "sourceprovider"}
 
 // Config regroups all project config.
 type Config struct {
-	DefaultOwner      string `json:"default_owner" mapstructure:"default_owner"`
-	PreferredProvider string `json:"preferred_provider" mapstructure:"preferred_provider"`
-	RootPath          string `json:"root_path" mapstructure:"root_path"`
+	DefaultOwner      string `json:"owner" mapstructure:"owner"`
+	PreferredProvider string `json:"sourceprovider" mapstructure:"sourceprovider"`
+	RootPath          string `json:"sourceroot" mapstructure:"sourceroot"`
 }
 
-func loadConfigFromDisk() (*Config, error) {
-	viper.SetConfigName("project")
-	viper.AddConfigPath(configDir)
+func getConfig() (*Config, error) {
+	replacer := strings.NewReplacer(".", "_")
+	viper.SetEnvKeyReplacer(replacer)
+	viper.SetEnvPrefix("purposed")
+	viper.AutomaticEnv()
 
-	if err := viper.ReadInConfig(); err != nil {
+	for _, k := range configKeys {
+		if err := viper.BindEnv(k); err != nil {
+			return nil, err
+		}
+	}
+	viper.SetDefault("sourceprovider", "github.com")
+
+	var config Config
+	if err := viper.Unmarshal(&config); err != nil {
 		return nil, err
 	}
-
-	var cfg Config
-	if err := viper.Unmarshal(&cfg); err != nil {
-		return nil, err
-	}
-
-	return &cfg, nil
-}
-
-func getConfig() *Config {
-	cfg, err := loadConfigFromDisk()
+	currentUser, err := user.Current()
 	if err != nil {
-		return &defaultConfig
+		return nil, err
 	}
 
-	if cfg.RootPath == "" {
-		cfg.RootPath = _curUsr.HomeDir
+	if config.DefaultOwner == "" {
+		config.DefaultOwner = currentUser.Name
 	}
 
-	return cfg
+	if config.RootPath == "" {
+		config.RootPath = currentUser.HomeDir
+	}
+
+	return &config, nil
 }

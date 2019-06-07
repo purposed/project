@@ -29,7 +29,10 @@ func (cmd *syncCommand) Register(fs *flag.FlagSet) {
 }
 
 func (cmd *syncCommand) Run(ctx context.Context, args []string) error {
-	cfg := getConfig()
+	cfg, err := getConfig()
+	if err != nil {
+		return err
+	}
 
 	svc := vcs.NewService(cfg.RootPath)
 
@@ -42,9 +45,10 @@ func (cmd *syncCommand) Run(ctx context.Context, args []string) error {
 	for _, r := range repos {
 		fmt.Printf("* Syncing %s... ", r.Name)
 		if err := r.Fetch(); err != nil {
-			return err
+			fmt.Printf("Error: %s.\n", err.Error())
+		} else {
+			fmt.Println("Done.")
 		}
-		fmt.Println("Done.")
 	}
 
 	return nil

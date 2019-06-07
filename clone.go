@@ -29,7 +29,10 @@ func (cmd *cloneCommand) Run(ctx context.Context, args []string) error {
 		return errors.New("must pass an URL to build")
 	}
 
-	cfg := getConfig()
+	cfg, err := getConfig()
+	if err != nil {
+		return err
+	}
 
 	svc := vcs.NewService(cfg.RootPath)
 	if err := svc.Clone(args[0]); err != nil {

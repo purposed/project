@@ -66,7 +66,7 @@ func TestRepository_ProjectDir(t *testing.T) {
 		Provider: provider,
 	}
 
-	actual := r.ProjectDir(rootPath)
+	actual := r.ProjectsListDir(rootPath)
 
 	if actual != expectedProjectDir {
 		t.Errorf("unexpected project dir: %s", actual)

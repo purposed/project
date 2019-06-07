@@ -33,7 +33,10 @@ func (cmd *newCommand) Run(ctx context.Context, args []string) error {
 		return errors.New("must pass a project name")
 	}
 
-	cfg := getConfig()
+	cfg, err := getConfig()
+	if err != nil {
+		return err
+	}
 
 	var provider = cfg.PreferredProvider
 	if cmd.provider != "" {

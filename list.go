@@ -29,7 +29,10 @@ func (cmd *listCommand) Register(fs *flag.FlagSet) {
 }
 
 func (cmd *listCommand) Run(ctx context.Context, args []string) error {
-	cfg := getConfig()
+	cfg, err := getConfig()
+	if err != nil {
+		return err
+	}
 
 	svc := vcs.NewService(cfg.RootPath)
 
