@@ -41,9 +41,9 @@ func (cmd *listCommand) Run(ctx context.Context, args []string) error {
 
 	for _, r := range repos {
 		if cmd.verbose {
-			fmt.Println(r.Pretty())
+			fmt.Printf("* %s\n", r.Pretty())
 		} else {
-			fmt.Println(r.Name)
+			fmt.Printf("* %s\n", r.Name)
 		}
 	}
 

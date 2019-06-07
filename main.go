@@ -19,6 +19,7 @@ func main() {
 		&newCommand{},
 		&cloneCommand{},
 		&listCommand{},
+		&syncCommand{},
 	}
 
 	p.FlagSet = flag.NewFlagSet("project", flag.ExitOnError)

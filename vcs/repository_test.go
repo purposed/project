@@ -55,3 +55,37 @@ func Test_ParseRepository(t *testing.T) {
 		})
 	}
 }
+
+func TestRepository_ProjectDir(t *testing.T) {
+	const name, owner, provider, rootPath = "hello", "there", "world", "/home/user"
+	const expectedProjectDir = "/home/user/src/world/there"
+
+	r := &vcs.Repository{
+		Name:     name,
+		Owner:    owner,
+		Provider: provider,
+	}
+
+	actual := r.ProjectDir(rootPath)
+
+	if actual != expectedProjectDir {
+		t.Errorf("unexpected project dir: %s", actual)
+	}
+}
+
+func TestRepository_ProjectPath(t *testing.T) {
+	const name, owner, provider, rootPath = "hello", "there", "world", "/home/user"
+	const expectedProjectDir = "/home/user/src/world/there/hello"
+
+	r := &vcs.Repository{
+		Name:     name,
+		Owner:    owner,
+		Provider: provider,
+	}
+
+	actual := r.ProjectPath(rootPath)
+
+	if actual != expectedProjectDir {
+		t.Errorf("unexpected project dir: %s", actual)
+	}
+}

@@ -25,11 +25,14 @@ func (s *ProjectService) Clone(repoInfoStr string) error {
 	if err != nil {
 		return err
 	}
+
+	repo.SetRoot(s.RootPath)
+
 	if err := repo.InitDirectories(s.RootPath); err != nil {
 		return err
 	}
 
-	if err := repo.Clone(s.RootPath); err != nil {
+	if err := repo.Clone(); err != nil {
 		return err
 	}
 
@@ -39,6 +42,7 @@ func (s *ProjectService) Clone(repoInfoStr string) error {
 // Create creates a new repository.
 func (s *ProjectService) Create(name, owner, provider string) error {
 	repo := &Repository{Name: name, Owner: owner, Provider: provider}
+	repo.SetRoot(s.RootPath)
 
 	pPath := repo.ProjectPath(s.RootPath)
 
@@ -86,12 +90,11 @@ func (s *ProjectService) listForProvider(providerName, owner string) ([]*Reposit
 				continue
 			}
 
-			out = append(out, newRepository(p.Name(), owner, providerName))
+			out = append(out, newRepository(p.Name(), owner, providerName, s.RootPath))
 		}
 	}
 
 	return out, nil
-
 }
 
 // List lists all projects for a given owner.
