@@ -11,7 +11,7 @@ $ go get github.com/purposed/project
 ## Configuration
 Project is configured via environment variables.
 
-* `PURPOSED_OWNER` : Default owner of  repositories. (default: ̀${USER}`)
+* `PURPOSED_OWNER` : Default owner of  repositories. (default: `${USER}`)
 * `PURPOSED_SOURCEPROVIDER` : Default source hosting provider to use (default: `github.com`)
 * `PURPOSED_SOURCEROOT` : Default directory for the source root. (default: `~/`)
 
