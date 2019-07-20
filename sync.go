@@ -5,7 +5,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/dalloriam/project/vcs"
+	"github.com/purposed/project/vcs"
 )
 
 const (

@@ -4,8 +4,8 @@ import (
 	"context"
 	"flag"
 
-	"github.com/dalloriam/project/version"
 	"github.com/genuinetools/pkg/cli"
+	"github.com/purposed/project/version"
 )
 
 func main() {

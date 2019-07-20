@@ -3,7 +3,7 @@ package vcs_test
 import (
 	"testing"
 
-	"github.com/dalloriam/project/vcs"
+	"github.com/purposed/project/vcs"
 )
 
 func Test_ParseRepository(t *testing.T) {

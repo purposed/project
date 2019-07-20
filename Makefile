@@ -2,7 +2,7 @@
 # https://github.com/jessfraz
 
 NAME := project
-USERNAME := dalloriam
+USERNAME := purposed
 PKG := github.com/$(USERNAME)/$(NAME)
 IMAGE := $(USERNAME)/$(NAME)
 PREFIX ?=$(shell pwd)

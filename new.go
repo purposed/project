@@ -5,7 +5,7 @@ import (
 	"errors"
 	"flag"
 
-	"github.com/dalloriam/project/vcs"
+	"github.com/purposed/project/vcs"
 )
 
 const (
