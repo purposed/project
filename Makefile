@@ -85,6 +85,11 @@ release: *.go VERSION.txt prebuild
 	@echo "+ $@"
 	$(foreach GOOSARCH,$(GOOSARCHES), $(call buildrelease,$(subst /,,$(dir $(GOOSARCH))),$(notdir $(GOOSARCH))))
 
+.PHONY: tag
+tag: ## Create a new git tag to prepare to build a release.
+	git tag -a $(VERSION) -m "$(VERSION)"
+	@echo "Run git push origin $(VERSION) to push your new tag to GitHub and trigger a travis build."
+
 .PHONY: install
 install: prebuild ## Installs the executable or package.
 	@echo "+ $@"
