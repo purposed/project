@@ -68,7 +68,7 @@ func (s *ProjectService) Create(name, owner, provider string) error {
 func (s *ProjectService) listForProvider(providerName, owner string) ([]*Repository, error) {
 	var out []*Repository
 
-	providerPath := path.Join(s.RootPath, SourceDirPrefix, providerName)
+	providerPath := path.Join(s.RootPath, sourceDirPrefix, providerName)
 
 	files, err := ioutil.ReadDir(providerPath)
 	if err != nil {
@@ -99,7 +99,7 @@ func (s *ProjectService) listForProvider(providerName, owner string) ([]*Reposit
 
 // List lists all projects for a given owner.
 func (s *ProjectService) List(owner string) ([]*Repository, error) {
-	srcDir := path.Join(s.RootPath, SourceDirPrefix)
+	srcDir := path.Join(s.RootPath, sourceDirPrefix)
 
 	files, err := ioutil.ReadDir(srcDir)
 	if err != nil {
