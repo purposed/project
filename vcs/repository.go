@@ -11,7 +11,8 @@ import (
 
 const (
 	providerSSHTemplate = "git@%s:%s/%s.git"
-	SourceDirPrefix     = "src"
+
+	sourceDirPrefix = "src"
 )
 
 // Repository represents a remote project repository.
@@ -53,7 +54,7 @@ func ParseRepository(repoInfo string) (Repository, error) {
 
 // ProjectsListDir returns the folder containing projects for this provider/owner combination.
 func (r *Repository) ProjectsListDir(rootPath string) string {
-	return path.Join(rootPath, SourceDirPrefix, r.Provider, r.Owner)
+	return path.Join(rootPath, sourceDirPrefix, r.Provider, r.Owner)
 }
 
 // ProjectPath returns the project path.
