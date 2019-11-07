@@ -1,10 +1,16 @@
 # Project
+![](https://img.shields.io/github/v/release/purposed/project?style=flat-square) ![](https://img.shields.io/github/go-mod/go-version/purposed/project?style=flat-square) ![](https://img.shields.io/github/license/purposed/project?style=flat-square)
+
 Project is an opinionated repository management tool. It believes your source code should live
 in a tree stemming from a single root (`~/` by default) (similar to a `GOPATH`).
 
 ## Installation
-Installation is simple, simply:
-```shell
+### With binman
+```bash
+$ binman install project
+```
+### With go get
+```bash
 $ go get github.com/purposed/project
 ```
 
