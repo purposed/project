@@ -7,7 +7,7 @@ require (
 	github.com/genuinetools/pkg v0.0.0-20181022210355-2fcf164d37cb
 	github.com/hashicorp/hcl v1.0.0
 	github.com/magiconair/properties v1.8.4
-	github.com/mitchellh/mapstructure v1.3.3
+	github.com/mitchellh/mapstructure v1.4.0
 	github.com/pelletier/go-toml v1.8.1
 	github.com/spf13/afero v1.4.1
 	github.com/spf13/cast v1.3.1
